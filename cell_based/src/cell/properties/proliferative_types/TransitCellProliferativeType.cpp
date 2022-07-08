@@ -35,8 +35,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "TransitCellProliferativeType.hpp"
 
-TransitCellProliferativeType::TransitCellProliferativeType()
-    : AbstractCellProliferativeType(1)
+TransitCellProliferativeType::TransitCellProliferativeType(unsigned colour)
+    : AbstractCellProliferativeType(colour)
 {}
 
 #include "SerializationExportWrapperForCpp.hpp"

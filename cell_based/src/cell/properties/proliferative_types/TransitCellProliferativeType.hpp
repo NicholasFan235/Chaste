@@ -64,7 +64,7 @@ public:
     /**
      * Constructor.
      */
-    TransitCellProliferativeType();
+    TransitCellProliferativeType(unsigned colour = 1);
 };
 
 #include "SerializationExportWrapper.hpp"

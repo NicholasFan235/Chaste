@@ -1052,11 +1052,14 @@ double VertexMesh<ELEMENT_DIM, SPACE_DIM>::GetVolumeOfElement(unsigned index)
     double element_volume = 0.0;
     if (SPACE_DIM == 2)
     {
+        unsigned num_nodes = p_element->GetNumNodes();
+
+        if (num_nodes <= 0) return 0.0;
+
         // We map the first vertex to the origin and employ GetVectorFromAtoB() to allow for periodicity
         c_vector<double, SPACE_DIM> first_node_location = p_element->GetNodeLocation(0);
         c_vector<double, SPACE_DIM> pos_1 = zero_vector<double>(SPACE_DIM);
 
-        unsigned num_nodes = p_element->GetNumNodes();
         for (unsigned local_index = 0; local_index < num_nodes; local_index++)
         {
             c_vector<double, SPACE_DIM> next_node_location = p_element->GetNodeLocation((local_index + 1) % num_nodes);
@@ -1110,6 +1113,8 @@ double VertexMesh<ELEMENT_DIM, SPACE_DIM>::GetSurfaceAreaOfElement(unsigned inde
     if (SPACE_DIM == 2)
     {
         unsigned num_nodes = p_element->GetNumNodes();
+        if (num_nodes <= 0) return 0.0;
+
         unsigned this_node_index = p_element->GetNodeGlobalIndex(0);
         for (unsigned local_index = 0; local_index < num_nodes; local_index++)
         {

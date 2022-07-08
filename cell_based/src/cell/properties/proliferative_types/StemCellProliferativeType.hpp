@@ -64,7 +64,7 @@ public:
     /**
      * Constructor.
      */
-    StemCellProliferativeType();
+    StemCellProliferativeType(unsigned colour=0);
 };
 
 #include "SerializationExportWrapper.hpp"

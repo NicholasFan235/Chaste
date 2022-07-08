@@ -64,7 +64,7 @@ public:
     /**
      * Constructor.
      */
-    DifferentiatedCellProliferativeType();
+    DifferentiatedCellProliferativeType(unsigned colour=2);
 };
 
 #include "SerializationExportWrapper.hpp"

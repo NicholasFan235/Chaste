@@ -583,7 +583,7 @@ public:
      *  @param indexA index of first node in pair
      *  @param indexB index of second node in pair
      */
-    double GetRestLength(unsigned indexA, unsigned indexB);
+    virtual double GetRestLength(unsigned indexA, unsigned indexB);
 
     /**
      *  Helper method to modify the rest length of a given spring

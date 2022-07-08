@@ -269,37 +269,41 @@ VertexMesh<2, 2>* Cylindrical2dVertexMesh::GetMeshForVtk()
         // Compute whether the element straddles either periodic boundary
         bool element_straddles_left_right_boundary = false;
 
-        const c_vector<double, 2>& r_this_node_location = elem_iter->GetNode(0)->rGetLocation();
-        for (unsigned local_index=0; local_index<num_nodes_in_elem; local_index++)
+        if (num_nodes_in_elem > 0)
         {
-            const c_vector<double, 2>& r_next_node_location = elem_iter->GetNode((local_index+1)%num_nodes_in_elem)->rGetLocation();
-            c_vector<double, 2> vector;
-            vector = r_next_node_location - r_this_node_location;
 
-            if (fabs(vector[0]) > 0.5*mWidth)
+            const c_vector<double, 2>& r_this_node_location = elem_iter->GetNode(0)->rGetLocation();
+            for (unsigned local_index=0; local_index<num_nodes_in_elem; local_index++)
             {
-                element_straddles_left_right_boundary = true;
-            }
-        }
+                const c_vector<double, 2>& r_next_node_location = elem_iter->GetNode((local_index+1)%num_nodes_in_elem)->rGetLocation();
+                c_vector<double, 2> vector;
+                vector = r_next_node_location - r_this_node_location;
 
-        // Use the above information when duplicating the element
-        for (unsigned local_index=0; local_index<num_nodes_in_elem; local_index++)
-        {
-            unsigned this_node_index = elem_iter->GetNodeGlobalIndex(local_index);
-
-            // If the element straddles the left/right periodic boundary...
-            if (element_straddles_left_right_boundary)
-            {
-                // ...and this node is located to the left of the centre of the mesh...
-                bool node_is_right_of_centre = (elem_iter->GetNode(local_index)->rGetLocation()[0] - 0.5*mWidth > 0);
-                if (!node_is_right_of_centre)
+                if (fabs(vector[0]) > 0.5*mWidth)
                 {
-                    // ...then choose the equivalent node to the right
-                    this_node_index += num_nodes;
+                    element_straddles_left_right_boundary = true;
                 }
             }
 
-            elem_nodes.push_back(temp_nodes[this_node_index]);
+            // Use the above information when duplicating the element
+            for (unsigned local_index=0; local_index<num_nodes_in_elem; local_index++)
+            {
+                unsigned this_node_index = elem_iter->GetNodeGlobalIndex(local_index);
+
+                // If the element straddles the left/right periodic boundary...
+                if (element_straddles_left_right_boundary)
+                {
+                    // ...and this node is located to the left of the centre of the mesh...
+                    bool node_is_right_of_centre = (elem_iter->GetNode(local_index)->rGetLocation()[0] - 0.5*mWidth > 0);
+                    if (!node_is_right_of_centre)
+                    {
+                        // ...then choose the equivalent node to the right
+                        this_node_index += num_nodes;
+                    }
+                }
+
+                elem_nodes.push_back(temp_nodes[this_node_index]);
+            }
         }
 
         VertexElement<2,2>* p_element = new VertexElement<2,2>(elem_index, elem_nodes);

@@ -101,6 +101,10 @@ double AbstractElement<ELEMENT_DIM, SPACE_DIM>::GetNodeLocation(unsigned localIn
 template <unsigned ELEMENT_DIM, unsigned SPACE_DIM>
 c_vector<double, SPACE_DIM> AbstractElement<ELEMENT_DIM, SPACE_DIM>::GetNodeLocation(unsigned localIndex) const
 {
+    if ((unsigned)localIndex >= mNodes.size())
+    {
+        std::cout << "Local index " << localIndex << " was out of range for mNodes.size() = " << mNodes.size() << " (unsigned)localIndex = " << (unsigned)localIndex << std::endl;
+    }
     assert((unsigned)localIndex < mNodes.size());
     return mNodes[localIndex]->rGetLocation();
 }

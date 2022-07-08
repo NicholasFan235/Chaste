@@ -35,8 +35,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "DifferentiatedCellProliferativeType.hpp"
 
-DifferentiatedCellProliferativeType::DifferentiatedCellProliferativeType()
-    : AbstractCellProliferativeType(2)
+DifferentiatedCellProliferativeType::DifferentiatedCellProliferativeType(unsigned colour)
+    : AbstractCellProliferativeType(colour)
 {}
 
 #include "SerializationExportWrapperForCpp.hpp"
