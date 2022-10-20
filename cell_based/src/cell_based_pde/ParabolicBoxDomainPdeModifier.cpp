@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2005-2021, University of Oxford.
+Copyright (c) 2005-2022, University of Oxford.
 All rights reserved.
 
 University of Oxford means the Chancellor, Masters and Scholars of the
@@ -101,6 +101,7 @@ void ParabolicBoxDomainPdeModifier<DIM>::SetupSolve(AbstractCellPopulation<DIM,D
     SetupInitialSolutionVector(rCellPopulation);
 
     // Output the initial conditions on FeMesh
+    UpdateAtEndOfTimeStep(rCellPopulation);
     this->UpdateAtEndOfOutputTimeStep(rCellPopulation);
 }
 
