@@ -101,6 +101,7 @@ void ParabolicBoxDomainPdeModifier<DIM>::SetupSolve(AbstractCellPopulation<DIM,D
     SetupInitialSolutionVector(rCellPopulation);
 
     // Output the initial conditions on FeMesh
+    UpdateAtEndOfTimeStep(rCellPopulation);
     this->UpdateAtEndOfOutputTimeStep(rCellPopulation);
 }
 
