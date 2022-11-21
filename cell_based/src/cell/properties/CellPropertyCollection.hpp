@@ -136,6 +136,19 @@ public:
         return false;
     }
 
+    template <typename CLASS>
+    boost::shared_ptr<CLASS> GetProperty() const
+    {
+        for (ConstIteratorType it = mProperties.begin(); it != mProperties.end(); ++it)
+        {
+            if ((*it)->IsType<CLASS>())
+            {
+                return boost::dynamic_pointer_cast<CLASS>(*it);
+            }
+        }
+        return boost::shared_ptr<CLASS>();
+    }
+
     /**
      * @return whether the collection contains a property that inherits from BASECLASS.
      *

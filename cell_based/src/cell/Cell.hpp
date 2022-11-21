@@ -346,6 +346,12 @@ public:
         return mCellPropertyCollection.HasProperty<CLASS>();
     }
 
+    template <typename CLASS>
+    boost::shared_ptr<CLASS> GetCellProperty() const
+    {
+        return mCellPropertyCollection.GetProperty<CLASS>();
+    }
+
     /**
      * @return whether this cell is ready to divide at the present simulation time.
      * MUST be called before calling Divide().
