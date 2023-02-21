@@ -319,6 +319,10 @@ unsigned DistributedBoxCollection<DIM>::CalculateContainingBox(c_vector<double, 
     {
         if ((rLocation[i] < mDomainSize(2*i)) || !(rLocation[i] < mDomainSize(2*i+1)))
         {
+            std::cout << "The point provided is outside of all the boxes: DIM=" << i
+                << " rLocation[i]=" << rLocation[i]
+                << " mDomainSize(2*i)=" << mDomainSize(2*i)
+                << " mDomainSize(2*i+1)=" << mDomainSize(2*i+1) << std::endl;
             EXCEPTION("The point provided is outside all of the boxes");
         }
     }
@@ -347,6 +351,10 @@ unsigned DistributedBoxCollection<DIM>::CalculateContainingBox(c_vector<double, 
         containing_box_index += temp*containing_box_indices[i];
     }
 
+    if (containing_box_index >= mNumBoxes)
+    {
+        std::cout << "containing_box_index=" << containing_box_index << ", mNumBoxes=" << mNumBoxes << std::endl;
+    }
     // This index must be less than the total number of boxes
     assert(containing_box_index < mNumBoxes);
 
