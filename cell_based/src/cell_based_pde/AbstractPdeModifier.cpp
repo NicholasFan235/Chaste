@@ -106,22 +106,27 @@ std::string& AbstractPdeModifier<DIM>::rGetDependentVariableName()
 template<unsigned DIM>
 bool AbstractPdeModifier<DIM>::HasAveragedSourcePde()
 {
-    return ((boost::dynamic_pointer_cast<AveragedSourceEllipticPde<DIM> >(mpPde) != nullptr) ||
-            (boost::dynamic_pointer_cast<AveragedSourceParabolicPde<DIM> >(mpPde) != nullptr));
+    return (boost::dynamic_pointer_cast<SetupSourceTermsInterface<DIM>>(mpPde) != nullptr);
+    //return ((boost::dynamic_pointer_cast<AveragedSourceEllipticPde<DIM> >(mpPde) != nullptr) ||
+    //        (boost::dynamic_pointer_cast<AveragedSourceParabolicPde<DIM> >(mpPde) != nullptr));
 }
 
 template<unsigned DIM>
 void AbstractPdeModifier<DIM>::SetUpSourceTermsForAveragedSourcePde(TetrahedralMesh<DIM,DIM>* pMesh, std::map<CellPtr, unsigned>* pCellPdeElementMap)
 {
     assert(HasAveragedSourcePde());
-    if (boost::dynamic_pointer_cast<AveragedSourceEllipticPde<DIM> >(mpPde) != nullptr)
+    if (boost::dynamic_pointer_cast<SetupSourceTermsInterface<DIM>>(mpPde) != nullptr)
+    {
+        boost::dynamic_pointer_cast<SetupSourceTermsInterface<DIM>>(mpPde)->SetupSourceTerms(*pMesh, pCellPdeElementMap);
+    }
+    /*if (boost::dynamic_pointer_cast<AveragedSourceEllipticPde<DIM> >(mpPde) != nullptr)
     {
         boost::static_pointer_cast<AveragedSourceEllipticPde<DIM> >(mpPde)->SetupSourceTerms(*pMesh, pCellPdeElementMap);
     }
     else if (boost::dynamic_pointer_cast<AveragedSourceParabolicPde<DIM> >(mpPde) != nullptr)
     {
         boost::static_pointer_cast<AveragedSourceParabolicPde<DIM> >(mpPde)->SetupSourceTerms(*pMesh, pCellPdeElementMap);
-    }
+    }*/
 }
 
 template<unsigned DIM>

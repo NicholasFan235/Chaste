@@ -43,6 +43,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AbstractCellPopulation.hpp"
 #include "TetrahedralMesh.hpp"
 #include "AbstractLinearEllipticPde.hpp"
+#include "SetupSourceTermsInterface.hpp"
 
 /**
  * An elliptic PDE to be solved numerically using the finite element method, for
@@ -65,7 +66,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \todo make member names and methods consistent with those of AveragedSourceParabolicPde (#2876)
  */
 template<unsigned DIM>
-class AveragedSourceEllipticPde : public AbstractLinearEllipticPde<DIM,DIM>
+class AveragedSourceEllipticPde : public AbstractLinearEllipticPde<DIM,DIM>, public SetupSourceTermsInterface<DIM>
 {
     friend class TestCellBasedEllipticPdes;
 

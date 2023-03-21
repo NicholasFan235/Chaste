@@ -42,6 +42,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AbstractCellPopulation.hpp"
 #include "TetrahedralMesh.hpp"
 #include "AbstractLinearParabolicPde.hpp"
+#include "SetupSourceTermsInterface.hpp"
 
 /**
  * A parabolic PDE to be solved numerically using the finite element method, for
@@ -63,7 +64,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * that element.
  */
 template<unsigned DIM>
-class AveragedSourceParabolicPde : public AbstractLinearParabolicPde<DIM,DIM>
+class AveragedSourceParabolicPde : public AbstractLinearParabolicPde<DIM,DIM>, public SetupSourceTermsInterface<DIM>
 {
     friend class TestCellBasedParabolicPdes;
 
