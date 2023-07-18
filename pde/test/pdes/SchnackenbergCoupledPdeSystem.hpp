@@ -81,7 +81,7 @@ public:
         return 1.0;
     }
 
-    double ComputeSourceTerm(const ChastePoint<SPACE_DIM>& rX, c_vector<double,2>& rU, std::vector<double>& rOdeSolution, unsigned pdeIndex)
+    double ComputeSourceTerm(const ChastePoint<SPACE_DIM>& rX, c_vector<double,2>& rU, std::vector<double>& rOdeSolution, unsigned pdeIndex, Element<SPACE_DIM,SPACE_DIM>* pElement=NULL)
     {
         assert(pdeIndex == 0 || pdeIndex == 1);
 

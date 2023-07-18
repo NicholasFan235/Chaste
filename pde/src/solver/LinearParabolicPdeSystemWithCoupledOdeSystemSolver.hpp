@@ -296,7 +296,7 @@ c_vector<double, PROBLEM_DIM*(ELEMENT_DIM+1)> LinearParabolicPdeSystemWithCouple
     for (unsigned pde_index=0; pde_index<PROBLEM_DIM; pde_index++)
     {
         double this_dudt_coefficient = mpPdeSystem->ComputeDuDtCoefficientFunction(rX, pde_index);
-        double this_source_term = mpPdeSystem->ComputeSourceTerm(rX, rU, mInterpolatedOdeStateVariables, pde_index);
+        double this_source_term = mpPdeSystem->ComputeSourceTerm(rX, rU, mInterpolatedOdeStateVariables, pde_index, pElement);
         c_vector<double, ELEMENT_DIM+1> this_vector_term;
         this_vector_term = (this_source_term + timestep_inverse*this_dudt_coefficient*rU(pde_index))* rPhi;
 

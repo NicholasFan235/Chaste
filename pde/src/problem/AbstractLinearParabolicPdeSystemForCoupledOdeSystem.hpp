@@ -59,6 +59,20 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 template<unsigned ELEMENT_DIM, unsigned SPACE_DIM=ELEMENT_DIM, unsigned PROBLEM_DIM=1>
 class AbstractLinearParabolicPdeSystemForCoupledOdeSystem
 {
+private:
+/** Needed for serialization. */
+    friend class boost::serialization::access;
+    /**
+     * Serialize the PDE object.
+     *
+     * @param archive the archive
+     * @param version the current version of this class
+     */
+    template<class Archive>
+    void serialize(Archive & archive, const unsigned int version)
+    {
+    }
+
 public:
     /**
      * @return computed function c_i(x).
@@ -79,7 +93,8 @@ public:
     virtual double ComputeSourceTerm(const ChastePoint<SPACE_DIM>& rX,
                                      c_vector<double,PROBLEM_DIM>& rU,
                                      std::vector<double>& rOdeSolution,
-                                     unsigned pdeIndex)=0;
+                                     unsigned pdeIndex,
+                                     Element<ELEMENT_DIM,SPACE_DIM>* pElement=nullptr)=0;
 
     /**
      * @return computed source term f_i(x, u_1, u_2, ..., u_p) at a node.
