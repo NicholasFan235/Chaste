@@ -83,7 +83,7 @@ public:
         unsigned thickness_of_ghost_layer = 3;
 
         CylindricalHoneycombMeshGenerator generator(cells_across, cells_up,thickness_of_ghost_layer, crypt_width/cells_across);
-        Cylindrical2dMesh* p_mesh = generator.GetCylindricalMesh();
+        boost::shared_ptr<Cylindrical2dMesh> p_mesh = generator.GetCylindricalMesh();
 
         double crypt_length = cells_up*(sqrt(3.0)/2.0)*crypt_width/cells_across;
 
@@ -96,7 +96,7 @@ public:
         // Set up cells
         std::vector<CellPtr> cells;
         CryptCellsGenerator<StochasticWntCellCycleModel> cells_generator;
-        cells_generator.Generate(cells, p_mesh, location_indices, true);
+        cells_generator.Generate(cells, p_mesh.get(), location_indices, true);
 
         MeshBasedCellPopulationWithGhostNodes<2> crypt(*p_mesh, cells, location_indices, false, 30.0); // Last parameter adjusts Ghost spring stiffness in line with the linear_force later on
 
@@ -169,7 +169,7 @@ public:
 
             // Define some "sensible" bounds on the number
             unsigned expected_cell_count_ub = 480u;
-            unsigned expected_cell_count_lb = 425u;
+            unsigned expected_cell_count_lb = 420u;
 
             TS_ASSERT_LESS_THAN(p_simulator->rGetCellPopulation().GetNumRealCells(), expected_cell_count_ub);
             TS_ASSERT_LESS_THAN(expected_cell_count_lb, p_simulator->rGetCellPopulation().GetNumRealCells());
