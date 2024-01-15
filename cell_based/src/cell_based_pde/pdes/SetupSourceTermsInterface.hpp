@@ -9,6 +9,8 @@ class SetupSourceTermsInterface
 {
 
 public:
+    virtual ~SetupSourceTermsInterface() = default;
+
     /**
      * Set up the source terms.
      *
