@@ -38,6 +38,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ReplicatableVector.hpp"
 #include "AveragedSourceEllipticPde.hpp"
 #include "AveragedSourceParabolicPde.hpp"
+#include "CellBasedEventHandler.hpp"
 
 template<unsigned DIM>
 AbstractPdeModifier<DIM>::AbstractPdeModifier(boost::shared_ptr<AbstractLinearPde<DIM,DIM> > pPde,
@@ -166,6 +167,7 @@ void AbstractPdeModifier<DIM>::SetupSolve(AbstractCellPopulation<DIM,DIM>& rCell
 template<unsigned DIM>
 void AbstractPdeModifier<DIM>::UpdateAtEndOfOutputTimeStep(AbstractCellPopulation<DIM,DIM>& rCellPopulation)
 {
+    CellBasedEventHandler::BeginEvent(CellBasedEventHandler::PDE);
     if (mOutputSolutionAtPdeNodes)
     {
         if (PetscTools::AmMaster())
@@ -213,6 +215,7 @@ void AbstractPdeModifier<DIM>::UpdateAtEndOfOutputTimeStep(AbstractCellPopulatio
         delete p_vtk_mesh_writer;
     }
 #endif //CHASTE_VTK
+    CellBasedEventHandler::EndEvent(CellBasedEventHandler::PDE);
 }
 
 template<unsigned DIM>
