@@ -35,6 +35,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "ParabolicBoxDomainPdeModifier.hpp"
 #include "SimpleLinearParabolicSolver.hpp"
+#include "CellBasedEventHandler.hpp"
 
 template<unsigned DIM>
 ParabolicBoxDomainPdeModifier<DIM>::ParabolicBoxDomainPdeModifier(boost::shared_ptr<AbstractLinearPde<DIM,DIM> > pPde,
@@ -60,6 +61,7 @@ ParabolicBoxDomainPdeModifier<DIM>::~ParabolicBoxDomainPdeModifier()
 template<unsigned DIM>
 void ParabolicBoxDomainPdeModifier<DIM>::UpdateAtEndOfTimeStep(AbstractCellPopulation<DIM,DIM>& rCellPopulation)
 {
+    CellBasedEventHandler::BeginEvent(CellBasedEventHandler::PDE);
     // Set up boundary conditions
     std::shared_ptr<BoundaryConditionsContainer<DIM,DIM,1> > p_bcc = ConstructBoundaryConditionsContainer(rCellPopulation);
 
@@ -90,6 +92,7 @@ void ParabolicBoxDomainPdeModifier<DIM>::UpdateAtEndOfTimeStep(AbstractCellPopul
     this->mSolution = solver.Solve();
     PetscTools::Destroy(previous_solution);
     this->UpdateCellData(rCellPopulation);
+    CellBasedEventHandler::EndEvent(CellBasedEventHandler::PDE);
 }
 
 template<unsigned DIM>
