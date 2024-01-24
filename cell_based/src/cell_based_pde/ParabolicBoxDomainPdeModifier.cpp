@@ -89,7 +89,9 @@ void ParabolicBoxDomainPdeModifier<DIM>::UpdateAtEndOfTimeStep(AbstractCellPopul
 
     // Note that the linear solver creates a vector, so we have to keep a handle on the old one
     // in order to destroy it
+    CellBasedEventHandler::BeginEvent(CellBasedEventHandler::PDE_SOLVE);
     this->mSolution = solver.Solve();
+    CellBasedEventHandler::EndEvent(CellBasedEventHandler::PDE_SOLVE);
     PetscTools::Destroy(previous_solution);
     this->UpdateCellData(rCellPopulation);
     CellBasedEventHandler::EndEvent(CellBasedEventHandler::PDE);

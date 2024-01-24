@@ -37,4 +37,4 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const char* CellBasedEventHandler::EventName[] = { "Setup", "Death", "Birth",
                                                 "Update_Pop", "Update_Sim", "Tessellate", "Force",
-                                                "Position", "Output", "Pde", "Total" };
+                                                "Position", "Output", "Pde", "Pde_Solve", "Total" };

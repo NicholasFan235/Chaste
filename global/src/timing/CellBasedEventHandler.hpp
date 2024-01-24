@@ -41,12 +41,12 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * A cell_based event class that can be used to calculate the time taken to
  * execute various parts of a cell-based simulation.
  */
-class CellBasedEventHandler : public GenericEventHandler<11, CellBasedEventHandler>
+class CellBasedEventHandler : public GenericEventHandler<12, CellBasedEventHandler>
 {
 public:
 
     /** Character array holding cell_based event names. There are eleven cell_based events. */
-    static const char* EventName[11];
+    static const char* EventName[12];
 
     /** Definition of cell_based event types. */
     typedef enum
@@ -61,6 +61,7 @@ public:
         POSITION,
         OUTPUT,
         PDE,
+        PDE_SOLVE,
         EVERYTHING
     } CellBasedEventType;
 };
