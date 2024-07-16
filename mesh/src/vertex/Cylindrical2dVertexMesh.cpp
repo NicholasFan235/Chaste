@@ -568,7 +568,7 @@ VertexMesh<2, 2>* Cylindrical2dVertexMesh::GetMeshForVtk()
         mpMeshForVtk = new VertexMesh<2,2>(nodes, elements);
         return mpMeshForVtk;
     }
-}
+
 
 // Serialization for Boost >= 1.36
 #include "SerializationExportWrapperForCpp.hpp"

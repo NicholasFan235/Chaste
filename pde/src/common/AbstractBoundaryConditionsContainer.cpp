@@ -51,5 +51,7 @@ template class AbstractBoundaryConditionsContainer<1,1,3>;
 template class AbstractBoundaryConditionsContainer<2,2,3>;
 template class AbstractBoundaryConditionsContainer<3,3,3>;
 
+template class AbstractBoundaryConditionsContainer<1,1,4>;
+
 template class AbstractBoundaryConditionsContainer<2,2,4>;
 template class AbstractBoundaryConditionsContainer<2,2,5>;
